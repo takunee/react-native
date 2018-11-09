@@ -1,4 +1,4 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
+// Copyright (c) 2004-present, Facebook, Inc.
 
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
@@ -101,11 +101,18 @@ import javax.annotation.Nullable;
         ReactStylesDiffMap props) {
       try {
         if (mIndex == null) {
-          SHADOW_ARGS[0] = extractProperty(props);
-          mSetter.invoke(nodeToUpdate, SHADOW_ARGS);
-          Arrays.fill(SHADOW_ARGS, null);
+          //SHADOW_ARGS[0] = extractProperty(props);
+          //mSetter.invoke(nodeToUpdate, SHADOW_ARGS);
+          //Arrays.fill(SHADOW_ARGS, null);
+
+          Object[] local_SHADOW_ARGS = new Object[SHADOW_ARGS.length];
+          local_SHADOW_ARGS[0] = extractProperty(props);
+          mSetter.invoke(nodeToUpdate, local_SHADOW_ARGS);
+          Arrays.fill(local_SHADOW_ARGS, null);
         } else {
           SHADOW_GROUP_ARGS[0] = mIndex;
+          //SHADOW_GROUP_ARGS[1] = extractProperty(props);
+          Object[] local_SHADOW_ARGS = new Object[SHADOW_GROUP_ARGS.length];
           SHADOW_GROUP_ARGS[1] = extractProperty(props);
           mSetter.invoke(nodeToUpdate, SHADOW_GROUP_ARGS);
           Arrays.fill(SHADOW_GROUP_ARGS, null);
